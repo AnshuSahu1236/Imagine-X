@@ -1,0 +1,63 @@
+
+<% include ./partials/header.ejs %>
+
+     <div class="w-full min-h-screen bg-zinc-800 px-10 py-8 text-white">
+
+   <div class="cards flex flex-wrap gap-10">
+       
+          <% posts.forEach(function(elem){%>
+              
+                    
+                <h5 class="mt-2 text-sm text-center"><%= elem.title %></h5>
+
+                <h6 class="text-center" >@<%=elem.user.username  %></h6>
+    
+                </div>
+
+           <% }) %> z
+               <%  
+                 
+                %> 
+                <% let currentPage=1%>
+                <% let  postPerPage=2 %>
+                <% let startindex=(currentpage-1)*postPerPage %>
+                <% let endIndex=Math.min(startindex+postPerPage,post.length()) %>
+
+                <% for(let i=startindex;i<endIndex;i++)  { %>
+                    <div class=" card w-32 ">
+                        <div class=" w-full h-40 rounded-lg overflow-hidden">
+                            <img class="w-full h-full object-cover" src="/images/uploads/<%=posts[i].image %>" alt="">
+                        </div>
+                    <h5 class="mt-2 text-sm text-center"><%= posts[i].title %></h5>    
+                    <h6 class="text-center" >@<%=posts[i].user.username  %></h6>
+                %>
+        </div>
+        <%}%>
+
+
+        <div class="pagination">
+            <%if(currentpage>1){%>
+            
+            <a href="/feed?page=<%=currentPage-1 %>" class="pagination-button">previous</a>
+            <%}%>
+
+            <% for(let i=1;i<Math.ceil(posts.length()/postPerPage;i++){%>
+                <a href="/feed ? page=<%=i %>"
+                 class="<%=i===currentPage?'active':"%>
+               class ="pagination-button"><%=i%></a>
+            <%}%>)
+
+                <% for(let i=1;i<Math.ceil(posts.length()/postPerPage;i++){%>
+    
+                    <a href="/feed ? page=<%=i %>"
+                     class="<%=i===currentPage?'active':"%>
+                     pagination-button"><%=i%></a>
+                <%}%>)
+                    
+                    <% if(currentPage<Math.ceil(posts.length()/postPerPage)){ %>
+                    <a href="/feed ? page=<%=currentPage+1 %>"
+                    class="pagination-button-2">Next</a>
+                    <%}%>
+        </div>
+    </div>
+<% include ./partials/footer.ejs %>  
